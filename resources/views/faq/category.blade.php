@@ -27,10 +27,10 @@
     <div class="space-y-4">
         @forelse($articles as $article)
         <a href="{{ route('faq.show', [$category->slug, $article->slug]) }}"
-           class="group block bg-white border border-gray-100 rounded-xl p-6 hover:border-crimson/20 hover:shadow-sm transition-all">
+           class="group block bg-white border border-gray-100 rounded-xl p-6 hover:border-navy/20 hover:shadow-sm transition-all">
             <div class="flex items-start justify-between gap-4">
                 <div>
-                    <h2 class="font-semibold text-crimson group-hover:text-gold transition-colors">{{ $article->title }}</h2>
+                    <h2 class="font-semibold text-navy group-hover:text-gold transition-colors">{{ $article->title }}</h2>
                     @if($article->excerpt)
                     <p class="text-gray-500 text-sm mt-2 line-clamp-2 leading-relaxed">{{ $article->excerpt }}</p>
                     @endif
@@ -41,7 +41,7 @@
                         @endif
                     </div>
                 </div>
-                <svg class="w-5 h-5 text-gray-300 group-hover:text-crimson flex-shrink-0 mt-1 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5 text-gray-300 group-hover:text-navy flex-shrink-0 mt-1 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
             </div>
@@ -56,7 +56,7 @@
     <div class="mt-12 bg-crimson rounded-2xl p-8 text-center">
         <h3 class="font-serif text-xl font-bold text-white mb-2">Need specific guidance?</h3>
         <p class="text-gray-300 text-sm mb-5">Submit a free enquiry and our advisors will respond to your individual situation.</p>
-        <a href="{{ route('enquiry.create') }}" class="inline-flex items-center gap-2 bg-gold text-crimson font-bold px-6 py-3 rounded-xl hover:bg-gold/90 transition-colors">
+        <a href="{{ route('enquiry.create') }}" class="inline-flex items-center gap-2 bg-gold text-navy font-bold px-6 py-3 rounded-xl hover:bg-gold/90 transition-colors">
             Get Free Help
         </a>
     </div>

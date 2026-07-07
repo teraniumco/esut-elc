@@ -14,7 +14,17 @@ use App\Http\Controllers\Portal\EnquiryController as PortalEnquiryController;
 use App\Http\Controllers\Portal\ResponseController;
 use App\Http\Controllers\Portal\Admin\UserController;
 use App\Http\Controllers\Portal\Admin\ReportsController;
+use App\Http\Controllers\Portal\Admin\HomeContentController;
+use App\Http\Controllers\Portal\Admin\FaqAdminController;
+use App\Http\Controllers\Portal\Admin\EventAdminController;
+
 use Illuminate\Support\Facades\Artisan;
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+
+    return Artisan::output();
+});
 
 Route::get('refresh-system', function () {
     Artisan::call('migrate:fresh --seed');
@@ -112,6 +122,61 @@ Route::prefix('portal')->name('portal.')->group(function () {
             });
 
             Route::get('/reports', [ReportsController::class, 'index'])->name('reports');
+
+            // ── Legal Resources (FAQ) management ──────────────────────────
+            Route::prefix('faq')->name('faq.')->group(function () {
+                Route::get('/', [FaqAdminController::class, 'index'])->name('index');
+                Route::get('/categories/create', [FaqAdminController::class, 'createCategory'])->name('categories.create');
+                Route::post('/categories', [FaqAdminController::class, 'storeCategory'])->name('categories.store');
+                Route::get('/categories/{category}/edit', [FaqAdminController::class, 'editCategory'])->name('categories.edit');
+                Route::put('/categories/{category}', [FaqAdminController::class, 'updateCategory'])->name('categories.update');
+                Route::delete('/categories/{category}', [FaqAdminController::class, 'destroyCategory'])->name('categories.destroy');
+
+                Route::get('/categories/{category}/articles', [FaqAdminController::class, 'articlesIndex'])->name('articles.index');
+                Route::get('/categories/{category}/articles/create', [FaqAdminController::class, 'createArticle'])->name('articles.create');
+                Route::post('/categories/{category}/articles', [FaqAdminController::class, 'storeArticle'])->name('articles.store');
+                Route::get('/categories/{category}/articles/{article}/edit', [FaqAdminController::class, 'editArticle'])->name('articles.edit');
+                Route::put('/categories/{category}/articles/{article}', [FaqAdminController::class, 'updateArticle'])->name('articles.update');
+                Route::delete('/categories/{category}/articles/{article}', [FaqAdminController::class, 'destroyArticle'])->name('articles.destroy');
+            });
+
+            // ── Events management ──────────────────────────────────────────
+            Route::prefix('events')->name('events.')->group(function () {
+                Route::get('/', [EventAdminController::class, 'index'])->name('index');
+                Route::get('/create', [EventAdminController::class, 'create'])->name('create');
+                Route::post('/', [EventAdminController::class, 'store'])->name('store');
+                Route::get('/{event}/edit', [EventAdminController::class, 'edit'])->name('edit');
+                Route::put('/{event}', [EventAdminController::class, 'update'])->name('update');
+                Route::delete('/{event}', [EventAdminController::class, 'destroy'])->name('destroy');
+                Route::post('/{event}/toggle', [EventAdminController::class, 'togglePublish'])->name('toggle');
+            });
+
+            // ── Homepage content management ───────────────────────────────
+            Route::prefix('content')->name('content.')->group(function () {
+                Route::get('/', [HomeContentController::class, 'index'])->name('index');
+
+                Route::post('/hero', [HomeContentController::class, 'heroStore'])->name('hero.store');
+                Route::put('/hero/{slide}', [HomeContentController::class, 'heroUpdate'])->name('hero.update');
+                Route::delete('/hero/{slide}', [HomeContentController::class, 'heroDestroy'])->name('hero.destroy');
+                Route::post('/hero/reorder', [HomeContentController::class, 'heroReorder'])->name('hero.reorder');
+
+                Route::post('/gallery', [HomeContentController::class, 'galleryStore'])->name('gallery.store');
+                Route::put('/gallery/{item}', [HomeContentController::class, 'galleryUpdate'])->name('gallery.update');
+                Route::delete('/gallery/{item}', [HomeContentController::class, 'galleryDestroy'])->name('gallery.destroy');
+                Route::post('/gallery/reorder', [HomeContentController::class, 'galleryReorder'])->name('gallery.reorder');
+
+                Route::post('/steps', [HomeContentController::class, 'stepStore'])->name('steps.store');
+                Route::put('/steps/{step}', [HomeContentController::class, 'stepUpdate'])->name('steps.update');
+                Route::delete('/steps/{step}', [HomeContentController::class, 'stepDestroy'])->name('steps.destroy');
+                Route::post('/steps/reorder', [HomeContentController::class, 'stepReorder'])->name('steps.reorder');
+
+                Route::post('/marquee', [HomeContentController::class, 'marqueeStore'])->name('marquee.store');
+                Route::put('/marquee/{item}', [HomeContentController::class, 'marqueeUpdate'])->name('marquee.update');
+                Route::delete('/marquee/{item}', [HomeContentController::class, 'marqueeDestroy'])->name('marquee.destroy');
+                Route::post('/marquee/reorder', [HomeContentController::class, 'marqueeReorder'])->name('marquee.reorder');
+
+                Route::put('/stats', [HomeContentController::class, 'statsUpdate'])->name('stats.update');
+            });
         });
 
     });

@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         
         $this->call([
+            HomeContentSeeder::class,
+            SiteSettingsSeeder::class,
             PhaseOneSeeder::class,
             PhaseTwoSeeder::class,
         ]);

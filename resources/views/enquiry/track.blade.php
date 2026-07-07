@@ -22,9 +22,9 @@
                        value="{{ old('reference_code') }}"
                        placeholder="ELC-2025-00142"
                        autocomplete="off"
-                       class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm font-mono uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-crimson/30 focus:border-crimson @error('reference_code') border-red-400 @enderror">
+                       class="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm font-mono uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-navy/30 focus:border-navy @error('reference_code') border-red-400 @enderror">
                 <button type="submit"
-                        class="bg-crimson text-white font-semibold px-5 py-3 rounded-xl hover:bg-gold hover:text-crimson transition-colors text-sm">
+                        class="bg-crimson text-white font-semibold px-5 py-3 rounded-xl hover:bg-gold hover:text-navy transition-colors text-sm">
                     Track
                 </button>
             </div>
@@ -39,7 +39,7 @@
 
         <div class="border-t border-gray-100 mt-8 pt-6 text-center">
             <p class="text-sm text-gray-500 mb-3">Don't have a reference code yet?</p>
-            <a href="{{ route('enquiry.create') }}" class="text-crimson font-semibold text-sm hover:text-gold transition-colors">
+            <a href="{{ route('enquiry.create') }}" class="text-navy font-semibold text-sm hover:text-gold transition-colors">
                 Submit a new enquiry →
             </a>
         </div>
@@ -49,7 +49,7 @@
     <div class="mt-8 text-center text-sm text-gray-400">
         <p>Reference codes are sent to the email address provided at submission.<br>
         If you submitted anonymously without saving your code, please
-        <a href="{{ route('contact.index') }}" class="text-crimson hover:text-gold">contact us</a>.</p>
+        <a href="{{ route('contact.index') }}" class="text-navy hover:text-gold">contact us</a>.</p>
     </div>
 </div>
 @endsection

@@ -14,7 +14,7 @@
     {{-- Upcoming --}}
     @if($upcoming->isNotEmpty())
     <section class="mb-16">
-        <h2 class="font-serif text-2xl font-bold text-crimson mb-6">Upcoming Events</h2>
+        <h2 class="font-serif text-2xl font-bold text-navy mb-6">Upcoming Events</h2>
         <div class="space-y-5">
             @foreach($upcoming as $event)
             <a href="{{ route('events.show', $event->slug) }}"
@@ -27,7 +27,7 @@
                 {{-- Content --}}
                 <div class="flex-1 p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
-                        <h3 class="font-semibold text-crimson group-hover:text-gold transition-colors text-lg">{{ $event->title }}</h3>
+                        <h3 class="font-semibold text-navy group-hover:text-gold transition-colors text-lg">{{ $event->title }}</h3>
                         <div class="flex flex-wrap items-center gap-3 mt-2 text-xs text-gray-400">
                             <span>🕐 {{ $event->event_date->format('g:i A') }}</span>
                             @if($event->location) <span>📍 {{ $event->location }}</span> @endif
@@ -38,7 +38,7 @@
                         <p class="text-gray-500 text-sm mt-2 line-clamp-2">{{ Str::limit(strip_tags($event->description), 140) }}</p>
                     </div>
                     <div class="flex-shrink-0">
-                        <span class="inline-flex items-center gap-1 text-sm text-crimson font-semibold group-hover:text-gold transition-colors">
+                        <span class="inline-flex items-center gap-1 text-sm text-navy font-semibold group-hover:text-gold transition-colors">
                             Details
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                         </span>
@@ -52,14 +52,14 @@
     <div class="text-center py-16 bg-gray-50 rounded-2xl mb-14">
         <span class="text-4xl block mb-4">📅</span>
         <p class="text-gray-500 font-medium">No upcoming events at this time.</p>
-        <p class="text-gray-400 text-sm mt-1">Check back soon or <a href="{{ route('contact.index') }}" class="text-crimson hover:underline">contact us</a> to suggest an event.</p>
+        <p class="text-gray-400 text-sm mt-1">Check back soon or <a href="{{ route('contact.index') }}" class="text-navy hover:underline">contact us</a> to suggest an event.</p>
     </div>
     @endif
 
     {{-- Past events --}}
     @if($past->isNotEmpty())
     <section>
-        <h2 class="font-serif text-xl font-bold text-crimson mb-5 text-gray-600">Past Events</h2>
+        <h2 class="font-serif text-xl font-bold text-navy mb-5 text-gray-600">Past Events</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             @foreach($past as $event)
             <div class="bg-gray-50 border border-gray-100 rounded-xl p-5 opacity-75">

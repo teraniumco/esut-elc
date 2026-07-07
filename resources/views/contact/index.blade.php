@@ -23,7 +23,7 @@
                         </div>
                         <div>
                             <p class="font-medium text-gray-900">Address</p>
-                            <p class="text-gray-500 mt-0.5">Faculty of Law, ESUT,<br>Agbani Road, Enugu State</p>
+                            <p class="text-gray-500 mt-0.5">{!! nl2br(e($address)) !!}</p>
                         </div>
                     </div>
 
@@ -33,7 +33,7 @@
                         </div>
                         <div>
                             <p class="font-medium text-gray-900">Email</p>
-                            <a href="mailto:elc@esut.edu.ng" class="text-crimson hover:text-gold transition-colors mt-0.5 block">elc@esut.edu.ng</a>
+                            <a href="mailto:{{ $email }}" class="text-crimson hover:text-gold transition-colors mt-0.5 block">{{ $email }}</a>
                         </div>
                     </div>
 
@@ -43,7 +43,7 @@
                         </div>
                         <div>
                             <p class="font-medium text-gray-900">Clinic Hours</p>
-                            <p class="text-gray-500 mt-0.5">Monday – Friday<br>9:00 AM – 5:00 PM</p>
+                            <p class="text-gray-500 mt-0.5">{!! nl2br(e($hours)) !!}</p>
                         </div>
                     </div>
                 </div>

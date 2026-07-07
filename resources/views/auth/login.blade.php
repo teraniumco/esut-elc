@@ -6,7 +6,7 @@
     <title>Portal Login — ESUT Law Clinic</title>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('assets/fonts/font-awesome/css/all.css')}}">
-    <link rel="shortcut icon" href="{{ asset('assets/img/esut_logomark.png') }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('assets/img/elc-logo.jpg') }}" type="image/png">
 
     <script src="{{asset('assets/js/vendor/tailwindcss-3.4.17.min.js')}}"></script>
     <style>
@@ -43,7 +43,7 @@
         <div class="relative z-10">
             <div class="flex items-center gap-3 mb-12">
                 <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3)">
-                    <img src="{{ asset('assets/img/esut_logomark.png') }}" alt="ESUT Law Clinic Logo">
+                    <img src="{{ asset('assets/img/elc-logo.jpg') }}" alt="ESUT Law Clinic Logo">
                 </div>
                 <div>
                     <span class="block font-serif text-white text-base" style="font-family:'DM Serif Display',serif">ESUT Law Clinic</span>
@@ -67,7 +67,7 @@
             {{-- Mobile logo --}}
             <div class="lg:hidden flex items-center gap-3 mb-8 justify-center">
                 <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:#711500">
-                    <img src="{{ asset('assets/img/esut_logomark.png') }}" alt="ESUT Law Clinic Logo">
+                    <img src="{{ asset('assets/img/elc-logo.jpg') }}" alt="ESUT Law Clinic Logo">
                 </div>
                 <div>
                     <span class="block font-serif" style="color:#711500;font-family:'DM Serif Display',serif">ESUT Law Clinic</span>

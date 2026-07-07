@@ -23,11 +23,11 @@ class UserController extends Controller
         $users = $query->paginate(20)->withQueryString();
 
         $counts = [
-            'total'      => User::count(),
-            'admin'      => User::admins()->count(),
-            'supervisor' => User::supervisors()->count(),
-            'advisor'    => User::advisors()->count(),
-            'inactive'   => User::where('is_active', false)->count(),
+            'total'       => User::count(),
+            'admin'       => User::admins()->count(),
+            'supervisor'  => User::supervisors()->count(),
+            'advisor'     => User::advisors()->count(),
+            'inactive'    => User::where('is_active', false)->count(),
         ];
 
         return view('portal.admin.users.index', compact('users', 'counts'));
@@ -56,8 +56,9 @@ class UserController extends Controller
 
         $token = $user->generateInviteToken();
 
+        // Send invite email
         try {
-            \Mail::to($user->email)->queue(new \App\Mail\Portal\UserInviteMail($user, $token));
+            \Mail::to($user->email)->send(new \App\Mail\Portal\UserInviteMail($user, $token));
         } catch (\Throwable $e) {
             logger()->error('Invite mail failed', ['error' => $e->getMessage()]);
         }
@@ -71,8 +72,8 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user->load('invitedBy');
-        $activity  = ActivityLog::where('user_id', $user->id)->latest('created_at')->take(10)->get();
-        $enquiries = \App\Models\Enquiry::forAdvisor($user->id)->with('currentResponse')->latest()->take(10)->get();
+        $activity     = ActivityLog::where('user_id', $user->id)->latest('created_at')->take(10)->get();
+        $enquiries    = \App\Models\Enquiry::forAdvisor($user->id)->with('currentResponse')->latest()->take(10)->get();
         return view('portal.admin.users.show', compact('user', 'activity', 'enquiries'));
     }
 
@@ -93,7 +94,6 @@ class UserController extends Controller
         ]);
 
         $user->update($data);
-
         ActivityLog::record('user.updated', $user);
 
         return redirect()->route('portal.admin.users.show', $user)
@@ -123,7 +123,7 @@ class UserController extends Controller
         $token = $user->generateInviteToken();
 
         try {
-            \Mail::to($user->email)->queue(new \App\Mail\Portal\UserInviteMail($user, $token));
+            \Mail::to($user->email)->send(new \App\Mail\Portal\UserInviteMail($user, $token));
         } catch (\Throwable $e) {
             logger()->error('Resend invite mail failed', ['error' => $e->getMessage()]);
         }

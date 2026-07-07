@@ -59,14 +59,14 @@
                     <div class="absolute right-0 top-3.5 w-1/2 h-0.5 {{ $idx < $currentIndex ? 'bg-crimson' : 'bg-gray-200' }} -translate-y-1/2"></div>
                     @endif
                     <div class="w-7 h-7 rounded-full border-2 z-10 flex items-center justify-center
-                        {{ $key === $enquiry->status ? 'border-crimson bg-crimson' : ($done ? 'border-crimson bg-white' : 'border-gray-200 bg-white') }}">
+                        {{ $key === $enquiry->status ? 'border-navy bg-crimson' : ($done ? 'border-navy bg-white' : 'border-gray-200 bg-white') }}">
                         @if($key === $enquiry->status)
                             <span class="w-2 h-2 rounded-full bg-white"></span>
                         @elseif($done)
-                            <svg class="w-3.5 h-3.5 text-crimson" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            <svg class="w-3.5 h-3.5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                         @endif
                     </div>
-                    <p class="text-[10px] text-center leading-tight {{ $key === $enquiry->status ? 'text-crimson font-semibold' : 'text-gray-400' }}">
+                    <p class="text-[10px] text-center leading-tight {{ $key === $enquiry->status ? 'text-navy font-semibold' : 'text-gray-400' }}">
                         {{ $label }}
                     </p>
                 </div>
@@ -132,11 +132,11 @@
     {{-- Actions --}}
     <div class="flex flex-col sm:flex-row gap-3">
         <a href="{{ route('enquiry.track') }}"
-           class="flex-1 text-center border border-gray-200 text-gray-700 font-medium py-3 rounded-xl hover:border-crimson/30 transition-colors text-sm">
+           class="flex-1 text-center border border-gray-200 text-gray-700 font-medium py-3 rounded-xl hover:border-navy/30 transition-colors text-sm">
             Track Another Enquiry
         </a>
         <a href="{{ route('faq.index') }}"
-           class="flex-1 text-center bg-crimson text-white font-semibold py-3 rounded-xl hover:bg-gold hover:text-crimson transition-colors text-sm">
+           class="flex-1 text-center bg-crimson text-white font-semibold py-3 rounded-xl hover:bg-gold hover:text-navy transition-colors text-sm">
             Browse Legal Resources
         </a>
     </div>

@@ -50,7 +50,7 @@ class EventController extends Controller
             'affiliation' => $request->affiliation,
         ]);
 
-        Mail::to($registration->email)->queue(new EventRegistrationMail($registration));
+        Mail::to($registration->email)->send(new EventRegistrationMail($registration));
 
         return back()->with('success', "You have been successfully registered for \"{$event->title}\". A confirmation has been sent to {$registration->email}.");
     }

@@ -36,7 +36,7 @@
                     <div class="absolute top-1 left-1 w-4 h-4 bg-white rounded-full shadow peer-checked:translate-x-4 transition-transform"></div>
                 </div>
                 <div>
-                    <p class="font-medium text-crimson text-sm">Submit Anonymously</p>
+                    <p class="font-medium text-navy text-sm">Submit Anonymously</p>
                     <p class="text-xs text-gray-500 mt-0.5">Choose this for sensitive matters such as sexual harassment or discrimination. Only your email will be collected to deliver the response.</p>
                 </div>
             </label>
@@ -48,14 +48,14 @@
                 <label for="full_name" class="block text-sm font-medium text-gray-700 mb-1.5">Full Name <span class="text-red-500">*</span></label>
                 <input type="text" name="full_name" id="full_name" value="{{ old('full_name') }}"
                        placeholder="Your full name"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30 focus:border-crimson @error('full_name') border-red-400 @enderror">
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30 focus:border-navy @error('full_name') border-red-400 @enderror">
                 @error('full_name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
             <div>
                 <label for="phone" class="block text-sm font-medium text-gray-700 mb-1.5">Phone Number</label>
                 <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
                        placeholder="e.g. 08012345678"
-                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30 focus:border-crimson @error('phone') border-red-400 @enderror">
+                       class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30 focus:border-navy @error('phone') border-red-400 @enderror">
                 @error('phone') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
         </div>
@@ -68,7 +68,7 @@
             </label>
             <input type="email" name="email" id="email" value="{{ old('email') }}"
                    placeholder="your.email@example.com"
-                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30 focus:border-crimson @error('email') border-red-400 @enderror">
+                   class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30 focus:border-navy @error('email') border-red-400 @enderror">
             @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             <p class="text-xs text-gray-400 mt-1">Your reference code and response will be sent to this address.</p>
         </div>
@@ -77,7 +77,7 @@
         <div>
             <label for="matter_category" class="block text-sm font-medium text-gray-700 mb-1.5">Area of Legal Matter <span class="text-red-500">*</span></label>
             <select name="matter_category" id="matter_category"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-crimson/30 focus:border-crimson @error('matter_category') border-red-400 @enderror">
+                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-navy/30 focus:border-navy @error('matter_category') border-red-400 @enderror">
                 <option value="">— Select a category —</option>
                 @foreach($categories as $key => $label)
                     <option value="{{ $key }}" {{ old('matter_category') === $key ? 'selected' : '' }}>{{ $label }}</option>
@@ -93,7 +93,7 @@
             </label>
             <textarea name="description" id="description" rows="7"
                       placeholder="Please describe your situation in as much detail as possible — what happened, when it happened, who is involved, and what outcome you are seeking. The more detail you provide, the better we can help you."
-                      class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30 focus:border-crimson resize-y @error('description') border-red-400 @enderror">{{ old('description') }}</textarea>
+                      class="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30 focus:border-navy resize-y @error('description') border-red-400 @enderror">{{ old('description') }}</textarea>
             @error('description') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             <p class="text-xs text-gray-400 mt-1">Minimum 30 characters. Maximum 3,000 characters.</p>
         </div>
@@ -107,8 +107,8 @@
                     <label class="flex-1 cursor-pointer">
                         <input type="radio" name="urgency" value="{{ $value }}"
                                {{ old('urgency', 'normal') === $value ? 'checked' : '' }} class="sr-only peer">
-                        <div class="border-2 border-gray-200 peer-checked:border-crimson peer-checked:bg-crimson/5 rounded-xl p-3 text-center transition-all">
-                            <p class="text-sm font-semibold text-gray-700 peer-checked:text-crimson">{{ $label }}</p>
+                        <div class="border-2 border-gray-200 peer-checked:border-navy peer-checked:bg-crimson/5 rounded-xl p-3 text-center transition-all">
+                            <p class="text-sm font-semibold text-gray-700 peer-checked:text-navy">{{ $label }}</p>
                             <p class="text-xs text-gray-400 mt-0.5">
                                 {{ $value === 'normal' ? '2–3 business days' : 'Within 24 hours' }}
                             </p>
@@ -121,7 +121,7 @@
 
             <div>
                 <label for="attachment" class="block text-sm font-medium text-gray-700 mb-1.5">Attach a Document <span class="text-gray-400 font-normal">(optional)</span></label>
-                <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center hover:border-crimson/30 transition-colors cursor-pointer" onclick="document.getElementById('attachment').click()">
+                <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center hover:border-navy/30 transition-colors cursor-pointer" onclick="document.getElementById('attachment').click()">
                     <svg class="w-6 h-6 text-gray-400 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
                     <p class="text-xs text-gray-500" id="file-label">PDF, DOC, JPG, PNG · Max 5MB</p>
                     <input type="file" name="attachment" id="attachment" class="hidden" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
@@ -133,16 +133,25 @@
 
         {{-- Privacy notice --}}
         <div class="bg-gray-50 rounded-xl p-4 text-xs text-gray-500 leading-relaxed">
-            By submitting this form, you confirm that the information provided is accurate to the best of your knowledge. This clinic provides general legal information and guidance, not formal legal representation. For matters requiring formal legal representation, we will advise you accordingly.
+            By submitting this form, you confirm that the information provided is accurate to the best of your knowledge. 
+        </div>
+
+        {{-- Info bar --}}
+        <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 mb-8 flex gap-3">
+            <svg class="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-sm text-orange-800">
+                <strong>DISCLAIMER:</strong> 
+                 While reasonable efforts are made to ensure the accuracy and usefulness of information provided through this platform, the responses are intended for general informational purposes only and do not constitute formal legal advice or create a solicitor-client relationship. Users are encouraged to seek professional legal counsel for specific matters. The Faculty shall not be liable for decisions made solely on the basis of information obtained from this platform.
+            </p>
         </div>
 
         {{-- Submit --}}
         <div class="flex items-center justify-between pt-2">
-            <a href="{{ route('enquiry.track') }}" class="text-sm text-gray-500 hover:text-crimson transition-colors">
+            <a href="{{ route('enquiry.track') }}" class="text-sm text-gray-500 hover:text-navy transition-colors">
                 Already submitted? Track your case →
             </a>
             <button type="submit"
-                    class="inline-flex items-center gap-2 bg-crimson text-white font-bold px-8 py-3.5 rounded-xl hover:bg-gold hover:text-crimson transition-colors shadow-lg">
+                    class="inline-flex items-center gap-2 bg-crimson text-white font-bold px-8 py-3.5 rounded-xl hover:bg-gold hover:text-navy transition-colors shadow-lg">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                 Submit Enquiry
             </button>

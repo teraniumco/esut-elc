@@ -6,7 +6,7 @@
 
     {{-- Breadcrumb --}}
     <nav class="flex items-center gap-2 text-xs text-gray-400 mb-6">
-        <a href="{{ route('events.index') }}" class="hover:text-crimson">Events</a>
+        <a href="{{ route('events.index') }}" class="hover:text-navy">Events</a>
         <span>›</span>
         <span class="text-gray-600">{{ Str::limit($event->title, 60) }}</span>
     </nav>
@@ -23,7 +23,7 @@
                 @endif
             </div>
 
-            <h1 class="font-serif text-2xl sm:text-3xl font-bold text-crimson mb-5">{{ $event->title }}</h1>
+            <h1 class="font-serif text-2xl sm:text-3xl font-bold text-navy mb-5">{{ $event->title }}</h1>
 
             <div class="flex flex-wrap gap-5 mb-8 text-sm text-gray-600">
                 <div class="flex items-center gap-2">
@@ -71,7 +71,7 @@
                     </div>
 
                 @else
-                    <div class="bg-crimson p-5 border-b border-crimson/20">
+                    <div class="bg-crimson p-5 border-b border-navy/20">
                         <p class="text-white font-semibold">Register for this Event</p>
                         @if($event->spotsLeft() !== null)
                         <p class="text-gold text-sm mt-0.5">{{ $event->spotsLeft() }} spot{{ $event->spotsLeft() !== 1 ? 's' : '' }} remaining</p>
@@ -90,23 +90,23 @@
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">Full Name *</label>
                             <input type="text" name="name" value="{{ old('name') }}" required
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30 @error('name') border-red-400 @enderror">
+                                   class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30 @error('name') border-red-400 @enderror">
                             @error('name') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">Email Address *</label>
                             <input type="email" name="email" value="{{ old('email') }}" required
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30 @error('email') border-red-400 @enderror">
+                                   class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30 @error('email') border-red-400 @enderror">
                             @error('email') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">Phone <span class="text-gray-400 font-normal">(optional)</span></label>
                             <input type="tel" name="phone" value="{{ old('phone') }}"
-                                   class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-crimson/30">
+                                   class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-navy/30">
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-gray-700 mb-1">Affiliation <span class="text-gray-400 font-normal">(optional)</span></label>
-                            <select name="affiliation" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-crimson/30">
+                            <select name="affiliation" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-navy/30">
                                 <option value="">— Select —</option>
                                 <option value="ESUT Student">ESUT Student</option>
                                 <option value="ESUT Staff">ESUT Staff</option>
@@ -114,7 +114,7 @@
                                 <option value="Other">Other</option>
                             </select>
                         </div>
-                        <button type="submit" class="w-full bg-crimson text-white font-semibold py-3 rounded-xl hover:bg-gold hover:text-crimson transition-colors text-sm">
+                        <button type="submit" class="w-full bg-crimson text-white font-semibold py-3 rounded-xl hover:bg-gold hover:text-navy transition-colors text-sm">
                             Register Now
                         </button>
                     </form>

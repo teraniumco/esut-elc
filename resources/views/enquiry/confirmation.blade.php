@@ -20,10 +20,10 @@
         <div class="p-8">
             <div class="text-center mb-8">
                 <p class="text-sm text-gray-500 mb-2">Your Reference Code</p>
-                <div class="inline-flex items-center gap-3 bg-crimson/5 border-2 border-crimson/20 rounded-xl px-6 py-4">
-                    <span class="font-serif text-2xl font-bold text-crimson tracking-widest">{{ $enquiry->reference_code }}</span>
+                <div class="inline-flex items-center gap-3 bg-crimson/5 border-2 border-navy/20 rounded-xl px-6 py-4">
+                    <span class="font-serif text-2xl font-bold text-navy tracking-widest">{{ $enquiry->reference_code }}</span>
                     <button onclick="navigator.clipboard.writeText('{{ $enquiry->reference_code }}').then(() => this.textContent = '✓')"
-                            class="text-xs text-gray-400 hover:text-crimson transition-colors border border-gray-200 rounded px-2 py-1">
+                            class="text-xs text-gray-400 hover:text-navy transition-colors border border-gray-200 rounded px-2 py-1">
                         Copy
                     </button>
                 </div>
@@ -65,14 +65,14 @@
             {{-- CTA buttons --}}
             <div class="flex flex-col gap-3">
                 <a href="{{ route('enquiry.track') }}"
-                   class="w-full text-center bg-crimson text-white font-semibold py-3 rounded-xl hover:bg-gold hover:text-crimson transition-colors">
+                   class="w-full text-center bg-crimson text-white font-semibold py-3 rounded-xl hover:bg-gold hover:text-navy transition-colors">
                     Track My Enquiry
                 </a>
                 <a href="{{ route('faq.index') }}"
-                   class="w-full text-center border border-gray-200 text-gray-700 font-medium py-3 rounded-xl hover:border-crimson/30 transition-colors text-sm">
+                   class="w-full text-center border border-gray-200 text-gray-700 font-medium py-3 rounded-xl hover:border-navy/30 transition-colors text-sm">
                     Browse Legal Resources While You Wait
                 </a>
-                <a href="{{ route('home') }}" class="text-center text-sm text-gray-400 hover:text-crimson transition-colors">
+                <a href="{{ route('home') }}" class="text-center text-sm text-gray-400 hover:text-navy transition-colors">
                     Return to Home
                 </a>
             </div>

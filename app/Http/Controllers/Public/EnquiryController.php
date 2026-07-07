@@ -54,7 +54,7 @@ class EnquiryController extends Controller
 
         // Send confirmation email if we have an email address
         if ($enquiry->email) {
-            Mail::to($enquiry->email)->queue(new EnquiryConfirmationMail($enquiry));
+            Mail::to($enquiry->email)->send(new EnquiryConfirmationMail($enquiry));
         }
 
         return redirect()

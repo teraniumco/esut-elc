@@ -306,22 +306,26 @@ class PhaseOneSeeder extends Seeder
             [
                 'name' => 'Rev. Sr. Dr. Maria Chigozie Onuegbulam',
                 'role' => 'Dean, Faculty of Law / Innovation and Supervising Lecturer',
-                'type' => 'lecturer'
+                'type' => 'lecturer',
+                'photo_path' => 'team/maria-onuegbulam.jpg',
             ],
             [
                 'name' => 'Prof. Osita Nnamani Ogbu',
                 'role' => 'Supervising Lecturer',
-                'type' => 'lecturer'
+                'type' => 'lecturer',
+                'photo_path' => 'team/osita-ogbu.jpg',
             ],
             [
                 'name' => 'Dr. Collins Chijioke Ani',
                 'role' => 'Innovative Research / Supervising Lecturer',
-                'type' => 'lecturer'
+                'type' => 'lecturer',
+                'photo_path' => 'team/collins-ani.jpg',
             ],
             [
                 'name' => 'Dr. Chijioke Agbo',
                 'role' => 'Law Clinic Coordinator / Supervising Lecturer',
-                'type' => 'lecturer'
+                'type' => 'lecturer',
+                'photo_path' => 'team/chijioke-agbo.jpg',
             ],
         ];
 
@@ -330,43 +334,50 @@ class PhaseOneSeeder extends Seeder
                 'name' => 'Ahanonu Uchechukwu Charles',
                 'role' => 'Student Adviser',
                 'level' => null,
-                'type' => 'student'
+                'type' => 'student',
+                'photo_path' => 'team/charles-ahanonu.jpg',
             ],
             [
                 'name' => 'Nwodo Immanuel Obinna',
                 'role' => 'Student Adviser',
                 'level' => null,
-                'type' => 'student'
+                'type' => 'student',
+                'photo_path' => 'team/immanuel-nwodo.jpg',
             ],
             [
                 'name' => 'Omenyi Kingsley Ifeanyichukwu',
                 'role' => 'Student Adviser',
                 'level' => null,
-                'type' => 'student'
+                'type' => 'student',
+                'photo_path' => 'team/kingsley-omenyi.jpg',
             ],
             [
                 'name' => 'Nkemjika Chikamso',
                 'role' => 'Student Adviser',
                 'level' => null,
-                'type' => 'student'
+                'type' => 'student',
+                'photo_path' => 'team/chikamso-okonkwo.jpg',
             ],
             [
                 'name' => 'Bethel Chimzurumoke Bright',
                 'role' => 'Student Adviser',
                 'level' => null,
-                'type' => 'student'
+                'type' => 'student',
+                'photo_path' => 'team/bethel-bright.jpg',
             ],
             [
                 'name' => 'Ugwoke Precious',
                 'role' => 'Student Adviser',
                 'level' => null,
-                'type' => 'student'
+                'type' => 'student',
+                'photo_path' => null, // no image found
             ],
             [
                 'name' => 'Mbah A. Favour',
                 'role' => 'Student Adviser',
                 'level' => null,
-                'type' => 'student'
+                'type' => 'student',
+                'photo_path' => 'team/favour-mbah.jpg',
             ],
         ];
 
@@ -374,7 +385,7 @@ class PhaseOneSeeder extends Seeder
             TeamMember::create([
                 ...$member,
                 'sort_order' => $idx,
-                'is_active'  => true,
+                'is_active' => true,
             ]);
         }
     }

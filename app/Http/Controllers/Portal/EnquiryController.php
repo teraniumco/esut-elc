@@ -96,7 +96,7 @@ class EnquiryController extends Controller
 
         // Notify advisor by email
         try {
-            \Mail::to($advisor->email)->queue(new \App\Mail\Portal\EnquiryAssignedMail($enquiry, $advisor));
+            \Mail::to($advisor->email)->send(new \App\Mail\Portal\EnquiryAssignedMail($enquiry, $advisor));
         } catch (\Throwable $e) {
             // Non-fatal — log and continue
             logger()->error('Assignment mail failed', ['error' => $e->getMessage()]);

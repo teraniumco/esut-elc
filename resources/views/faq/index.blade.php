@@ -12,7 +12,7 @@
         <form action="{{ route('faq.index') }}" method="GET" class="flex gap-3 max-w-xl mx-auto">
             <input type="text" name="q" value="{{ $search }}" placeholder="Search legal questions..."
                    class="flex-1 border-0 rounded-xl px-5 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-gold/50 text-gray-900">
-            <button type="submit" class="bg-gold text-crimson font-semibold px-5 py-3 rounded-xl hover:bg-gold/90 transition-colors text-sm">
+            <button type="submit" class="bg-gold text-navy font-semibold px-5 py-3 rounded-xl hover:bg-gold/90 transition-colors text-sm">
                 Search
             </button>
         </form>
@@ -30,23 +30,23 @@
                     <p class="text-xs text-gray-400 mt-0.5">{{ $articles->total() }} article{{ $articles->total() !== 1 ? 's' : '' }} found</p>
                 @endif
             </div>
-            <a href="{{ route('faq.index') }}" class="text-sm text-crimson hover:text-gold transition-colors">Clear search</a>
+            <a href="{{ route('faq.index') }}" class="text-sm text-navy hover:text-gold transition-colors">Clear search</a>
         </div>
 
         @if($articles->isNotEmpty())
             <div class="space-y-4 mb-10">
                 @foreach($articles as $article)
                 <a href="{{ route('faq.show', [$article->category->slug, $article->slug]) }}"
-                   class="group block bg-white border border-gray-100 rounded-xl p-5 hover:border-crimson/20 hover:shadow-sm transition-all">
+                   class="group block bg-white border border-gray-100 rounded-xl p-5 hover:border-navy/20 hover:shadow-sm transition-all">
                     <div class="flex items-start justify-between gap-4">
                         <div>
                             <span class="text-xs text-gold font-semibold uppercase tracking-wide">{{ $article->category->name }}</span>
-                            <h3 class="font-semibold text-crimson group-hover:text-gold transition-colors mt-1">{{ $article->title }}</h3>
+                            <h3 class="font-semibold text-navy group-hover:text-gold transition-colors mt-1">{{ $article->title }}</h3>
                             @if($article->excerpt)
                             <p class="text-gray-500 text-sm mt-1.5 line-clamp-2">{{ $article->excerpt }}</p>
                             @endif
                         </div>
-                        <svg class="w-5 h-5 text-gray-300 group-hover:text-crimson flex-shrink-0 mt-1 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <svg class="w-5 h-5 text-gray-300 group-hover:text-navy flex-shrink-0 mt-1 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </div>
                 </a>
                 @endforeach
@@ -56,7 +56,7 @@
             <div class="text-center py-16 bg-gray-50 rounded-2xl">
                 <svg class="w-10 h-10 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 <p class="text-gray-500 font-medium">No articles found for "{{ $search }}"</p>
-                <p class="text-gray-400 text-sm mt-1">Try different keywords or <a href="{{ route('enquiry.create') }}" class="text-crimson hover:underline">submit a direct enquiry</a>.</p>
+                <p class="text-gray-400 text-sm mt-1">Try different keywords or <a href="{{ route('enquiry.create') }}" class="text-navy hover:underline">submit a direct enquiry</a>.</p>
             </div>
         @endif
 
@@ -71,7 +71,7 @@
                     <div class="flex items-center gap-3">
                         <span class="text-2xl">{{ $cat->icon ?? '⚖️' }}</span>
                         <div>
-                            <h2 class="font-semibold text-crimson group-hover:text-gold transition-colors">{{ $cat->name }}</h2>
+                            <h2 class="font-semibold text-navy group-hover:text-gold transition-colors">{{ $cat->name }}</h2>
                             <p class="text-xs text-gray-500">{{ $cat->publishedArticles->count() }} article{{ $cat->publishedArticles->count() !== 1 ? 's' : '' }}</p>
                         </div>
                     </div>
@@ -81,10 +81,10 @@
                     @forelse($cat->publishedArticles->take(4) as $article)
                     <a href="{{ route('faq.show', [$cat->slug, $article->slug]) }}"
                        class="group flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors">
-                        <span class="text-sm text-gray-700 group-hover:text-crimson transition-colors line-clamp-1 pr-2">
+                        <span class="text-sm text-gray-700 group-hover:text-navy transition-colors line-clamp-1 pr-2">
                             {{ $article->title }}
                         </span>
-                        <svg class="w-4 h-4 text-gray-300 group-hover:text-crimson flex-shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        <svg class="w-4 h-4 text-gray-300 group-hover:text-navy flex-shrink-0 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                     </a>
                     @empty
                     <p class="px-5 py-4 text-sm text-gray-400 italic">No articles published yet.</p>
@@ -109,7 +109,7 @@
     <div class="mt-16 bg-crimson rounded-2xl p-8 text-center">
         <h3 class="font-serif text-xl font-bold text-white mb-2">Can't find what you're looking for?</h3>
         <p class="text-gray-300 text-sm mb-5">Submit a direct enquiry and our student advisors will respond personally.</p>
-        <a href="{{ route('enquiry.create') }}" class="inline-flex items-center gap-2 bg-gold text-crimson font-bold px-6 py-3 rounded-xl hover:bg-gold/90 transition-colors">
+        <a href="{{ route('enquiry.create') }}" class="inline-flex items-center gap-2 bg-gold text-navy font-bold px-6 py-3 rounded-xl hover:bg-gold/90 transition-colors">
             Submit a Free Enquiry
         </a>
     </div>

@@ -8,6 +8,14 @@
 .timeline-dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0;margin-top:5px}
 .timeline-dot.done{background:var(--crimson)}
 .timeline-dot.current{background:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.25)}
+/* Inline field error */
+.field-error{font-size:11.5px;color:#dc2626;margin-top:4px;display:flex;align-items:center;gap:4px}
+/* Form error summary banner */
+.form-errors{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:12.5px;color:#dc2626}
+.form-errors ul{margin:4px 0 0 14px;list-style:disc}
+.form-errors li{margin-bottom:2px}
+.input-error{border-color:#f87171!important}
+.input-error:focus{box-shadow:0 0 0 3px rgba(248,113,113,0.2)!important}
 </style>
 @endpush
 
@@ -19,6 +27,14 @@
     <span class="status-badge status-{{ $enquiry->status }} text-xs">{{ $enquiry->status_label }}</span>
     @if($enquiry->urgency === 'urgent') <span class="text-xs px-2.5 py-1 rounded-full bg-red-100 text-red-700 font-semibold">⚡ Urgent</span> @endif
 </div>
+
+{{-- ── Global validation error banner (shown when errors exist but no specific form anchor) ── --}}
+@if($errors->any() && !$errors->has('content') && !$errors->has('review_notes') && !$errors->has('advisor_id') && !$errors->has('note'))
+<div class="form-errors mb-5">
+    <strong>Please fix the following:</strong>
+    <ul>@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
+</div>
+@endif
 
 <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
 
@@ -57,9 +73,9 @@
             @endif
         </div>
 
-        {{-- Assign panel (admin only) --}}
+        {{-- ── Assign panel (admin only) ── --}}
         @can('assign', $enquiry)
-        <div class="portal-card" x-data="{ open: {{ $enquiry->status === 'received' ? 'true' : 'false' }} }">
+        <div class="portal-card" x-data="{ open: {{ $enquiry->status === 'received' || $errors->has('advisor_id') ? 'true' : 'false' }} }">
             <button @click="open = !open" class="flex items-center justify-between w-full text-left">
                 <h3 class="font-semibold text-sm" style="color:var(--text)">
                     {{ $enquiry->activeAssignment ? '↻ Reassign Enquiry' : '+ Assign to Advisor' }}
@@ -79,19 +95,31 @@
                     <div class="space-y-3">
                         <div>
                             <label class="form-label">Assign to Advisor</label>
-                            <select name="advisor_id" class="form-input" required>
+                            <select name="advisor_id" class="form-input @error('advisor_id') input-error @enderror" required>
                                 <option value="">— Select advisor —</option>
                                 @foreach($advisors as $advisor)
-                                <option value="{{ $advisor->id }}" {{ optional($enquiry->activeAssignment)->advisor_id == $advisor->id ? 'selected' : '' }}>
+                                <option value="{{ $advisor->id }}" {{ old('advisor_id', optional($enquiry->activeAssignment)->advisor_id) == $advisor->id ? 'selected' : '' }}>
                                     {{ $advisor->name }}
                                     ({{ $advisor->active_assignments_count ?? $advisor->activeAssignments()->count() }} active)
                                 </option>
                                 @endforeach
                             </select>
+                            @error('advisor_id')
+                            <p class="field-error">
+                                <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                {{ $message }}
+                            </p>
+                            @enderror
                         </div>
                         <div>
                             <label class="form-label">Assignment Notes <span class="font-normal" style="color:var(--text-light)">(optional)</span></label>
-                            <textarea name="assignment_notes" class="form-input" rows="2" placeholder="Context or instructions for the advisor…"></textarea>
+                            <textarea name="assignment_notes" class="form-input @error('assignment_notes') input-error @enderror" rows="2" placeholder="Context or instructions for the advisor…">{{ old('assignment_notes') }}</textarea>
+                            @error('assignment_notes')
+                            <p class="field-error">
+                                <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                                {{ $message }}
+                            </p>
+                            @enderror
                         </div>
                         <button type="submit" class="btn-crimson btn-sm">Assign</button>
                     </div>
@@ -100,7 +128,7 @@
         </div>
         @endcan
 
-        {{-- Response draft (advisor + supervisor) --}}
+        {{-- ── Response draft (advisor + supervisor) ── --}}
         @can('respond', $enquiry)
         <div class="portal-card">
             <h3 class="font-semibold text-sm mb-4" style="color:var(--text)">
@@ -109,7 +137,7 @@
                 @else 📝 Draft Response @endif
             </h3>
 
-            {{-- Show rejection notes if rejected --}}
+            {{-- Rejection notes --}}
             @if($currentResponse?->review_status === 'rejected')
             <div class="mb-4 p-4 rounded-xl border" style="background:#fff8e1;border-color:#fde68a">
                 <div class="text-xs font-bold uppercase tracking-wider mb-1" style="color:#92400e">Supervisor Feedback</div>
@@ -118,23 +146,53 @@
             </div>
             @endif
 
-            <form method="POST" action="{{ route('portal.responses.draft', $enquiry) }}" x-data="{ submitting: false }">
+            {{-- Draft validation errors --}}
+            @if($errors->hasAny(['content', 'internal_notes']))
+            <div class="form-errors">
+                <strong>Please fix the following:</strong>
+                <ul>
+                    @error('content') <li>{{ $message }}</li> @enderror
+                    @error('internal_notes') <li>{{ $message }}</li> @enderror
+                </ul>
+            </div>
+            @endif
+
+            <form method="POST" action="{{ route('portal.responses.draft', $enquiry) }}">
                 @csrf
                 <div class="space-y-4">
                     <div>
                         <label class="form-label">Legal Response</label>
-                        <textarea name="content" class="form-input" rows="12" placeholder="Draft your legal response here. Be thorough, clear, and reference relevant Nigerian law where applicable…" required>{{ old('content', $currentResponse?->content) }}</textarea>
+                        <textarea name="content"
+                                  class="form-input @error('content') input-error @enderror"
+                                  rows="12"
+                                  placeholder="Draft your legal response here. Be thorough, clear, and reference relevant Nigerian law where applicable…"
+                                  required>{{ old('content', $currentResponse?->content) }}</textarea>
+                        @error('content')
+                        <p class="field-error">
+                            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                            {{ $message }}
+                        </p>
+                        @enderror
                         <div class="form-hint">Minimum 50 characters. Reference relevant statutes, case law, or constitutional provisions where applicable.</div>
                     </div>
                     <div>
                         <label class="form-label">Internal Notes <span class="font-normal" style="color:var(--text-light)">(not sent to requester)</span></label>
-                        <textarea name="internal_notes" class="form-input" rows="3" placeholder="Notes for the supervisor, research citations, doubts…">{{ old('internal_notes', $currentResponse?->internal_notes) }}</textarea>
+                        <textarea name="internal_notes"
+                                  class="form-input @error('internal_notes') input-error @enderror"
+                                  rows="3"
+                                  placeholder="Notes for the supervisor, research citations, doubts…">{{ old('internal_notes', $currentResponse?->internal_notes) }}</textarea>
+                        @error('internal_notes')
+                        <p class="field-error">
+                            <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                            {{ $message }}
+                        </p>
+                        @enderror
                     </div>
                     <div class="flex flex-wrap gap-3">
                         <button type="submit" class="btn-ghost btn-sm">💾 Save Draft</button>
-                        @if($currentResponse && in_array($currentResponse->review_status, ['draft','rejected']))
+                        @if($currentResponse && in_array($currentResponse->review_status, ['draft', 'rejected']))
                         <button type="button" class="btn-crimson btn-sm"
-                            onclick="document.getElementById('submit-form').submit()">
+                                onclick="document.getElementById('submit-form').submit()">
                             ✓ Submit for Review
                         </button>
                         @endif
@@ -143,13 +201,13 @@
             </form>
 
             {{-- Hidden submit form --}}
-            @if($currentResponse && in_array($currentResponse->review_status, ['draft','rejected']))
+            @if($currentResponse && in_array($currentResponse->review_status, ['draft', 'rejected']))
             <form id="submit-form" method="POST" action="{{ route('portal.responses.submit', $enquiry) }}" class="hidden">@csrf</form>
             @endif
         </div>
         @endcan
 
-        {{-- Approve / Reject panel (supervisor / admin) --}}
+        {{-- ── Approve / Reject panel (supervisor / admin) ── --}}
         @can('review', $enquiry)
         @if($currentResponse && $currentResponse->review_status === 'submitted')
         <div class="portal-card border-2" style="border-color:var(--gold)">
@@ -163,18 +221,26 @@
                 {{-- Approve --}}
                 <form method="POST" action="{{ route('portal.responses.approve', $enquiry) }}">
                     @csrf
-                    <button type="submit" class="btn-gold w-full justify-center py-3" onclick="return confirm('Approve and send this response to the requester?')">
+                    <button type="submit" class="btn-gold w-full justify-center py-3"
+                            onclick="return confirm('Approve and send this response to the requester?')">
                         ✓ Approve & Send to Requester
                     </button>
                 </form>
 
-                {{-- Reject --}}
-                <div x-data="{ open: false }">
+                {{-- Reject with inline validation --}}
+                <div x-data="{ open: {{ $errors->has('review_notes') ? 'true' : 'false' }} }">
                     <button @click="open = !open" class="btn-danger w-full justify-center py-3">↩ Return for Revision</button>
                     <div x-show="open" x-transition class="mt-3">
+                        @error('review_notes')
+                        <div class="form-errors mb-2">{{ $message }}</div>
+                        @enderror
                         <form method="POST" action="{{ route('portal.responses.reject', $enquiry) }}">
                             @csrf
-                            <textarea name="review_notes" class="form-input mb-2" rows="4" placeholder="Explain clearly what needs to be changed or improved…" required></textarea>
+                            <textarea name="review_notes"
+                                      class="form-input mb-2 @error('review_notes') input-error @enderror"
+                                      rows="4"
+                                      placeholder="Explain clearly what needs to be changed or improved…"
+                                      required>{{ old('review_notes') }}</textarea>
                             <button type="submit" class="btn-danger btn-sm w-full justify-center">Send Feedback to Advisor</button>
                         </form>
                     </div>
@@ -184,9 +250,9 @@
         @endif
         @endcan
 
-        {{-- Internal notes --}}
+        {{-- ── Internal notes ── --}}
         @can('review', $enquiry)
-        <div class="portal-card" x-data="{ open: false }">
+        <div class="portal-card" x-data="{ open: {{ $errors->has('note') ? 'true' : 'false' }} }">
             <button @click="open = !open" class="flex items-center justify-between w-full text-left">
                 <h3 class="font-semibold text-sm" style="color:var(--text)">Internal Notes</h3>
                 <svg :class="open ? 'rotate-180' : ''" class="w-4 h-4 transition-transform" style="color:var(--text-light)" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
@@ -195,16 +261,22 @@
                 @if($enquiry->internal_notes)
                 <div class="p-3 rounded-lg text-xs whitespace-pre-line" style="background:var(--off-white);color:var(--text-mid)">{{ $enquiry->internal_notes }}</div>
                 @endif
+                @error('note')
+                <div class="form-errors">{{ $message }}</div>
+                @enderror
                 <form method="POST" action="{{ route('portal.enquiries.note', $enquiry) }}">
                     @csrf
-                    <textarea name="note" class="form-input mb-2" rows="3" placeholder="Add a note…"></textarea>
+                    <textarea name="note"
+                              class="form-input mb-2 @error('note') input-error @enderror"
+                              rows="3"
+                              placeholder="Add a note…">{{ old('note') }}</textarea>
                     <button type="submit" class="btn-ghost btn-sm">Add Note</button>
                 </form>
             </div>
         </div>
         @endcan
 
-        {{-- Response history --}}
+        {{-- ── Response history ── --}}
         @if($responseHistory->isNotEmpty())
         <div class="portal-card">
             <h3 class="font-semibold text-sm mb-4" style="color:var(--text)">Response History</h3>
@@ -231,9 +303,15 @@
         @can('assign', $enquiry)
         <div class="portal-card">
             <h3 class="font-semibold text-sm mb-3" style="color:var(--text)">Status Override</h3>
+            @error('status')
+            <p class="field-error mb-2">
+                <svg class="w-3.5 h-3.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+                {{ $message }}
+            </p>
+            @enderror
             <form method="POST" action="{{ route('portal.enquiries.status', $enquiry) }}" class="flex gap-2">
                 @csrf
-                <select name="status" class="form-input flex-1 text-xs">
+                <select name="status" class="form-input flex-1 text-xs @error('status') input-error @enderror">
                     @foreach(\App\Models\Enquiry::STATUSES as $k => $v)
                     <option value="{{ $k }}" {{ $enquiry->status === $k ? 'selected' : '' }}>{{ $v }}</option>
                     @endforeach
@@ -270,7 +348,8 @@
             <div class="space-y-2 text-xs">
                 <div class="flex items-center justify-between">
                     <span style="color:var(--text-mid)">Status</span>
-                    <span class="status-badge" style="background:{{ $currentResponse->review_status === 'approved' ? '#f0fdf4' : ($currentResponse->review_status === 'rejected' ? '#fef2f2' : '#fff7ed') }};color:{{ $currentResponse->review_status === 'approved' ? '#15803d' : ($currentResponse->review_status === 'rejected' ? '#dc2626' : '#c2410c') }}">
+                    <span class="status-badge"
+                          style="background:{{ $currentResponse->review_status === 'approved' ? '#f0fdf4' : ($currentResponse->review_status === 'rejected' ? '#fef2f2' : '#fff7ed') }};color:{{ $currentResponse->review_status === 'approved' ? '#15803d' : ($currentResponse->review_status === 'rejected' ? '#dc2626' : '#c2410c') }}">
                         {{ $currentResponse->status_label }}
                     </span>
                 </div>
@@ -300,7 +379,7 @@
             <div class="space-y-3 max-h-72 overflow-y-auto">
                 @forelse($enquiry->activityLogs as $log)
                 <div class="flex gap-2.5">
-                    <div class="timeline-dot {{ in_array($log->action, ['response.approved','enquiry.assigned']) ? 'done' : (in_array($log->action, ['response.submitted']) ? 'current' : '') }} mt-1.5"></div>
+                    <div class="timeline-dot {{ in_array($log->action, ['response.approved', 'enquiry.assigned']) ? 'done' : (in_array($log->action, ['response.submitted']) ? 'current' : '') }} mt-1.5"></div>
                     <div>
                         <div class="text-xs font-medium" style="color:var(--text)">{{ $log->action_label }}</div>
                         @if($log->user)<div class="text-xs" style="color:var(--text-light)">{{ $log->user->name }}</div>@endif

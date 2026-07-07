@@ -23,7 +23,7 @@ class ResponseController extends Controller
         $existing = $enquiry->responses()->where('is_current', true)->first();
 
         if ($existing && $existing->review_status === EnquiryResponse::STATUS_DRAFT) {
-            // Update existing draft
+            // Update existing draft — preserve the original advisor_id
             $existing->update([
                 'content'        => $request->content,
                 'internal_notes' => $request->internal_notes,
@@ -32,10 +32,20 @@ class ResponseController extends Controller
         } else {
             // Archive any existing and create new
             $enquiry->responses()->update(['is_current' => false]);
-            $version  = ($enquiry->responses()->max('version') ?? 0) + 1;
+            $version = ($enquiry->responses()->max('version') ?? 0) + 1;
+
+            // Use the assigned advisor's ID if the current user is admin/supervisor
+            $advisorId = auth()->id();
+            if (!auth()->user()->isAdvisor()) {
+                $assigned = $enquiry->assignments()->where('is_active', true)->latest()->first();
+                if ($assigned) {
+                    $advisorId = $assigned->advisor_id;
+                }
+            }
+
             $response = EnquiryResponse::create([
                 'enquiry_id'     => $enquiry->id,
-                'advisor_id'     => auth()->id(),
+                'advisor_id'     => $advisorId,
                 'content'        => $request->content,
                 'internal_notes' => $request->internal_notes,
                 'review_status'  => EnquiryResponse::STATUS_DRAFT,
@@ -55,15 +65,21 @@ class ResponseController extends Controller
     {
         $this->authorize('respond', $enquiry);
 
-        $response = $enquiry->responses()->where('is_current', true)
-            ->where('advisor_id', auth()->id())
-            ->whereIn('review_status', [EnquiryResponse::STATUS_DRAFT, EnquiryResponse::STATUS_REJECTED])
-            ->firstOrFail();
+        // Admins and supervisors can submit any current draft, not just their own
+        $query = $enquiry->responses()
+            ->where('is_current', true)
+            ->whereIn('review_status', [EnquiryResponse::STATUS_DRAFT, EnquiryResponse::STATUS_REJECTED]);
+
+        if (auth()->user()->isAdvisor()) {
+            $query->where('advisor_id', auth()->id());
+        }
+
+        $response = $query->firstOrFail();
 
         $response->update([
             'review_status' => EnquiryResponse::STATUS_SUBMITTED,
             'submitted_at'  => now(),
-            'review_notes'  => null, // Clear previous rejection notes
+            'review_notes'  => null,
         ]);
 
         $enquiry->update(['status' => 'awaiting_approval']);
@@ -101,7 +117,7 @@ class ResponseController extends Controller
         // Send response to requester
         if ($enquiry->email) {
             try {
-                \Mail::to($enquiry->email)->queue(new \App\Mail\Portal\EnquiryResponseMail($enquiry, $response));
+                \Mail::to($enquiry->email)->send(new \App\Mail\Portal\EnquiryResponseMail($enquiry, $response));
             } catch (\Throwable $e) {
                 logger()->error('Response dispatch mail failed', ['error' => $e->getMessage()]);
             }
@@ -141,7 +157,7 @@ class ResponseController extends Controller
         // Notify advisor of rejection
         try {
             $advisor = $response->advisor;
-            \Mail::to($advisor->email)->queue(new \App\Mail\Portal\ResponseRejectedMail($enquiry, $response, $advisor));
+            \Mail::to($advisor->email)->send(new \App\Mail\Portal\ResponseRejectedMail($enquiry, $response, $advisor));
         } catch (\Throwable $e) {
             logger()->error('Rejection mail failed', ['error' => $e->getMessage()]);
         }

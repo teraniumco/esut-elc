@@ -10,12 +10,10 @@
     .hero-section {
         position: relative;
         width: 100%;
-        height: 100vh;           /* explicit height — slides are absolute, parent must have defined height */
-        min-height: 600px;       /* floor so nothing collapses on tiny screens */
+        height: 100vh;
+        min-height: 600px;
         overflow: hidden;
     }
-
-    /* ── Individual slides ── */
     .hero-slide {
         position: absolute; inset: 0;
         display: flex; align-items: center;
@@ -24,8 +22,6 @@
         z-index: 1;
     }
     .hero-slide.active { opacity: 1; z-index: 2; }
-
-    /* Slide background */
     .hero-slide-bg {
         position: absolute; inset: 0;
         background-size: cover; background-position: center;
@@ -33,17 +29,13 @@
         transform: scale(1.05);
         transition: transform 7s ease;
     }
-    .hero-slide.active .hero-slide-bg { transform: scale(1); } /* Ken Burns zoom-out */
-
-    /* Multi-layer overlay */
+    .hero-slide.active .hero-slide-bg { transform: scale(1); }
     .hero-slide-overlay {
         position: absolute; inset: 0; z-index: 1;
         background:
             linear-gradient(to right,  rgba(74,13,0,0.88) 0%, rgba(74,13,0,0.50) 55%, rgba(74,13,0,0.18) 100%),
             linear-gradient(to top,    rgba(74,13,0,0.65) 0%, transparent 55%);
     }
-
-    /* Atmospheric layers */
     .hero-grid-lines {
         position: absolute; inset: 0; z-index: 2; pointer-events: none;
         background-image:
@@ -63,8 +55,6 @@
     .hero-ring-1 { width: 700px; height: 700px; top: -250px; right: -150px; }
     .hero-ring-2 { width: 400px; height: 400px; bottom: -150px; left: -80px; border-color: rgba(255,255,255,0.03); }
     .hero-ring-3 { width: 180px; height: 180px; top: 30%; left: 42%; border-color: rgba(201,168,76,0.12); }
-
-    /* Slide text content */
     .hero-slide-content {
         position: relative; z-index: 3;
         max-width: 1280px; margin: 0 auto;
@@ -72,8 +62,6 @@
         width: 100%;
     }
     .hero-slide-inner { max-width: 680px; }
-
-    /* Badge */
     .hero-badge {
         display: inline-flex; align-items: center; gap: 8px;
         font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
@@ -89,8 +77,6 @@
         0%,100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.5); }
         50%      { box-shadow: 0 0 0 8px rgba(201,168,76,0); }
     }
-
-    /* Tag pill */
     .hero-tag-pill {
         display: inline-flex; align-items: center; gap: 8px;
         background: rgba(255,255,255,0.08);
@@ -101,8 +87,6 @@
         letter-spacing: 0.5px;
     }
     .hero-tag-pill-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-
-    /* Title */
     .hero-title {
         font-family: 'DM Serif Display', serif;
         font-size: clamp(40px, 6.5vw, 82px);
@@ -112,15 +96,11 @@
     }
     .hero-title em   { font-style: italic; color: rgba(255,255,255,0.55); }
     .hero-title-gold { color: var(--gold-light); }
-
-    /* Subtitle */
     .hero-subtitle {
         font-size: 16px; color: rgba(255,255,255,0.55);
         line-height: 1.65; max-width: 520px;
         margin-bottom: 36px;
     }
-
-    /* CTAs */
     .hero-ctas { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
     .hero-btn-primary {
         display: inline-flex; align-items: center; gap: 10px;
@@ -142,8 +122,6 @@
         transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
     .hero-btn-ghost:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.4); color: #fff; text-decoration: none; }
-
-    /* Stats bar */
     .hero-stats-bar {
         position: absolute; bottom: 0; left: 0; right: 0;
         z-index: 10;
@@ -166,8 +144,6 @@
     .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 26px; color: #fff; line-height: 1; }
     .hero-stat-num sup { font-size: 13px; color: var(--gold); }
     .hero-stat-cap { font-size: 10px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; }
-
-    /* Arrows */
     .carousel-arrow {
         position: absolute; top: 50%; transform: translateY(-50%);
         z-index: 10; width: 48px; height: 48px; border-radius: 50%;
@@ -182,8 +158,6 @@
     .carousel-arrow-prev { left: 28px; }
     .carousel-arrow-next { right: 28px; }
     .carousel-arrow:active { transform: translateY(-50%) scale(0.91); }
-
-    /* Dots */
     .carousel-dots {
         position: absolute; bottom: 90px; left: 50%; transform: translateX(-50%);
         display: flex; gap: 8px; z-index: 10;
@@ -195,31 +169,18 @@
         transition: background 0.3s, width 0.35s cubic-bezier(0.4,0,0.2,1), border-radius 0.35s;
     }
     .carousel-dot.active { width: 28px; border-radius: 4px; background: var(--gold); }
-
-    /* Progress bar */
     .hero-progress {
         position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 10;
         background: rgba(255,255,255,0.08);
     }
-    .hero-progress-fill {
-        height: 100%; background: var(--gold); width: 0%;
-    }
-    .hero-progress-fill.running {
-        animation: progress-fill 5s linear forwards;
-    }
-    @keyframes progress-fill {
-        from { width: 0%; }
-        to   { width: 100%; }
-    }
-
-    /* Slide counter */
+    .hero-progress-fill { height: 100%; background: var(--gold); width: 0%; }
+    .hero-progress-fill.running { animation: progress-fill 5s linear forwards; }
+    @keyframes progress-fill { from { width: 0%; } to { width: 100%; } }
     .hero-counter {
         position: absolute; right: 40px; bottom: 98px;
         z-index: 10; font-size: 12px; color: rgba(255,255,255,0.35);
         font-weight: 600; letter-spacing: 2px;
     }
-
-    /* ── Responsive ── */
     @media (max-width: 991px) {
         .hero-slide-content  { padding: 0 24px; }
         .how-cut, .faq-cut, .team-cut { display: none; }
@@ -257,17 +218,11 @@
         .hero-stats-inner    { padding: 0 10px; }
     }
 
-
     /* ─────────────────────────────────────────────────────────
     HOW IT WORKS (Feature Pills)
     ───────────────────────────────────────────────────────── */
-    .how-section {
-        position: relative;
-        background: var(--off-white);
-        padding: 100px 0 140px; overflow: hidden;
-    }
+    .how-section { position: relative; background: var(--off-white); padding: 100px 0 140px; overflow: hidden; }
     .how-section .container-inner { position: relative; z-index: 1; }
-
     .feature-pill {
         display: flex; align-items: center; gap: 18px;
         background: #fff; border: 1px solid var(--border);
@@ -275,11 +230,7 @@
         transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
         height: 100%;
     }
-    .feature-pill:hover {
-        border-color: var(--crimson);
-        box-shadow: 0 8px 32px rgba(113,21,0,0.1);
-        transform: translateY(-4px);
-    }
+    .feature-pill:hover { border-color: var(--crimson); box-shadow: 0 8px 32px rgba(113,21,0,0.1); transform: translateY(-4px); }
     .fp-icon {
         flex-shrink: 0; width: 52px; height: 52px;
         background: var(--crimson-light); border-radius: 12px;
@@ -290,8 +241,6 @@
     .fp-num { font-family: 'DM Serif Display', serif; font-size: 11px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
     .fp-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
     .fp-desc  { font-size: 12.5px; color: var(--text-light); line-height: 1.6; margin: 0; }
-
-    /* Stats strip */
     .stats-strip {
         background: var(--crimson); border-radius: 16px; padding: 36px 48px;
         display: flex; align-items: center; justify-content: space-between; gap: 20px;
@@ -304,12 +253,10 @@
     .stat-big sup { font-size: 16px; color: var(--gold-light); font-family: 'DM Sans', sans-serif; font-weight: 600; }
     .stat-cap    { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1px; text-align: center; }
     .stat-divider { width: 1px; height: 44px; background: rgba(255,255,255,0.12); flex-shrink: 0; }
-
     .how-cut { position: absolute; bottom: -1px; left: 0; right: 0; height: 70px; background: var(--crimson-dark); clip-path: polygon(0 0, 100% 100%, 0 100%); z-index: 2; }
 
-
     /* ─────────────────────────────────────────────────────────
-    FAQ CATEGORIES (Subtheme-style list)
+    FAQ CATEGORIES
     ───────────────────────────────────────────────────────── */
     .faq-section { position: relative; padding: 120px 0 130px; overflow: hidden; }
     .faq-bg { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(74,13,0,0.97) 0%, rgba(113,21,0,0.94) 50%, rgba(74,13,0,0.97) 100%); z-index: 0; }
@@ -319,7 +266,6 @@
     .faq-ring-2 { width: 350px; height: 350px; bottom: -120px; left: -100px; }
     .faq-section .inner { position: relative; z-index: 2; }
     .faq-list { display: flex; flex-direction: column; gap: 14px; }
-
     .faq-item {
         position: relative; display: flex; align-items: stretch;
         background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
@@ -343,20 +289,28 @@
     .faq-item:hover .faq-arrow { color: var(--gold); }
     .faq-cut { position: absolute; bottom: -1px; left: 0; right: 0; height: 70px; background: var(--off-white); clip-path: polygon(0 100%, 100% 0, 100% 100%); z-index: 2; }
 
-
     /* ─────────────────────────────────────────────────────────
     TEAM / SUPERVISORS
     ───────────────────────────────────────────────────────── */
     .team-section { background: var(--off-white); padding: 110px 0 130px; overflow: hidden; }
-    .lecturer-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; gap: 16px; align-items: flex-start; transition: box-shadow 0.25s, transform 0.25s; }
-    .lecturer-card:hover { box-shadow: 0 8px 32px rgba(113,21,0,0.1); transform: translateY(-4px); }
-    .lecturer-photo { width: 56px; height: 56px; border-radius: 50%; background: var(--crimson-light); overflow: hidden; flex-shrink: 0; border: 2px solid var(--border); }
-    .lecturer-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .lecturer-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
-    .lecturer-role { font-size: 12px; color: var(--gold); font-weight: 600; }
-    .lecturer-bio  { font-size: 12px; color: var(--text-light); margin-top: 6px; line-height: 1.5; }
+    .lecturer-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; position: relative; transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease; }
+    .lecturer-card:hover { box-shadow: 0 20px 60px rgba(113,21,0,0.13); transform: translateY(-6px); border-color: rgba(113,21,0,0.18); }
+    .lecturer-photo-wrap { position: relative; width: 100%; aspect-ratio: 3 / 3.5; overflow: hidden; background: linear-gradient(135deg, var(--crimson-light) 0%, #ede3de 100%); }
+    .lecturer-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .lecturer-card:hover .lecturer-photo-wrap img { transform: scale(1.04); }
+    .lecturer-photo-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(74,13,0,0.72) 0%, rgba(74,13,0,0.1) 55%, transparent 100%); opacity: 0; transition: opacity 0.35s ease; display: flex; align-items: flex-end; padding: 22px 20px; }
+    .lecturer-card:hover .lecturer-photo-overlay { opacity: 1; }
+    .lecturer-overlay-bio { font-size: 12.5px; color: rgba(255,255,255,0.85); line-height: 1.6; transform: translateY(6px); transition: transform 0.35s ease; }
+    .lecturer-card:hover .lecturer-overlay-bio { transform: translateY(0); }
+    .lecturer-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 2; background: linear-gradient(90deg, var(--crimson) 0%, var(--gold) 100%); }
+    .lecturer-body { padding: 20px 22px 22px; border-top: 1px solid var(--border); position: relative; }
+    .lecturer-body::before { content: ''; position: absolute; top: -1px; left: 22px; width: 36px; height: 2px; background: var(--crimson); }
+    .lecturer-name { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 5px; }
+    .lecturer-role { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 0.8px; text-transform: uppercase; }
+    .lecturer-dept { font-size: 11.5px; color: var(--text-light); margin-top: 6px; line-height: 1.5; }
+    .lecturer-photo-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .lecturer-photo-initials { font-family: 'DM Serif Display', serif; font-size: 56px; font-weight: 400; color: rgba(113,21,0,0.18); line-height: 1; }
     .team-cut { position: absolute; bottom: -1px; left: 0; right: 0; height: 70px; background: #fff; clip-path: polygon(0 0, 0 100%, 100% 100%); }
-
 
     /* ─────────────────────────────────────────────────────────
     EVENTS
@@ -374,7 +328,6 @@
     .event-card-body { padding: 18px; flex: 1; }
     .event-card-desc { font-size: 13px; color: var(--text-light); line-height: 1.65; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-
     /* ─────────────────────────────────────────────────────────
     MARQUEE
     ───────────────────────────────────────────────────────── */
@@ -384,7 +337,6 @@
     @keyframes marquee-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .mq-item { font-family: 'DM Serif Display', serif; font-size: 16px; font-weight: 400; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; padding: 0 32px; }
     .mq-dot  { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-
 
     /* ─────────────────────────────────────────────────────────
     BOTTOM CTA
@@ -400,7 +352,6 @@
     .cta-btn-primary:hover { background: var(--gold-light); transform: translateY(-3px); text-decoration: none; color: var(--dark); }
     .cta-btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 600; padding: 14px 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); text-decoration: none; transition: background 0.2s, color 0.2s; }
     .cta-btn-ghost:hover { background: rgba(255,255,255,0.08); color: #fff; text-decoration: none; }
-
 
     /* ─────────────────────────────────────────────────────────
     GALLERY
@@ -423,18 +374,58 @@
     .gallery-item:hover .gallery-overlay { opacity: 1; }
     .gallery-overlay-text { font-family: 'DM Serif Display', serif; font-size: 15px; color: #fff; line-height: 1.3; transform: translateY(6px); transition: transform 0.35s ease; }
     .gallery-item:hover .gallery-overlay-text { transform: translateY(0); }
-    .gallery-placeholder { background: linear-gradient(135deg, var(--crimson-light) 0%, #ede3de 100%); display: flex; align-items: center; justify-content: center; font-size: 28px; color: rgba(113,21,0,0.15); }
+    /* ─────────────────────────────────────────────────────────
+    LEGAL DISCLAIMER NOTICE
+    ───────────────────────────────────────────────────────── */
+    .disclaimer-section {
+        background: var(--off-white);
+        border-top: 1px solid var(--border);
+        padding: 0;
+    }
+    .disclaimer-toggle {
+        width: 100%; display: flex; align-items: center; justify-content: space-between;
+        padding: 16px 0; cursor: pointer; background: none; border: none;
+        text-align: left; gap: 12px;
+    }
+    .disclaimer-toggle:hover .disclaimer-label { color: var(--crimson); }
+    .disclaimer-icon {
+        width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0;
+        background: var(--crimson-light); border: 1px solid rgba(113,21,0,0.12);
+        display: flex; align-items: center; justify-content: center;
+        color: var(--crimson);
+    }
+    .disclaimer-label {
+        font-size: 11.5px; font-weight: 700; letter-spacing: 1px;
+        text-transform: uppercase; color: var(--text-mid);
+        transition: color 0.2s;
+        flex: 1;
+    }
+    .disclaimer-chevron {
+        flex-shrink: 0; color: var(--text-light);
+        transition: transform 0.3s ease;
+    }
+    .disclaimer-chevron.open { transform: rotate(180deg); }
+    .disclaimer-body {
+        padding-bottom: 20px;
+        border-top: 1px dashed var(--border);
+        padding-top: 16px;
+    }
+    .disclaimer-text {
+        font-size: 12px; color: var(--text-light);
+        line-height: 1.8; max-width: 860px;
+    }
+    .disclaimer-text strong { color: var(--text-mid); font-weight: 600; }
 
 </style>
 @endpush
 
 @section('content')
 
-{{-- ═══ HERO — Full-width Carousel ════════════════════════════════════ --}}
+{{-- ═══ HERO — Full-width Carousel (DYNAMIC) ═══════════════════════════ --}}
 <section class="hero-section"
          x-data="{
              current: 0,
-             total: 4,
+             total: {{ max($heroSlides->count(), 1) }},
              timer: null,
              start() { this.timer = setInterval(() => this.next(), 5000); },
              next()  { this.current = (this.current + 1) % this.total; this.restart(); },
@@ -445,29 +436,25 @@
                  const bar = document.getElementById('hero-progress-fill');
                  if (!bar) return;
                  bar.classList.remove('running');
-                 void bar.offsetWidth; /* force reflow to restart animation */
+                 void bar.offsetWidth;
                  bar.classList.add('running');
              }
          }"
          x-init="start(); $nextTick(() => resetProgress())">
 
-    {{-- Progress bar — restarted via JS on each slide change --}}
-    <div class="hero-progress">
-        <div id="hero-progress-fill" class="hero-progress-fill running"></div>
-    </div>
+    <div class="hero-progress"><div id="hero-progress-fill" class="hero-progress-fill running"></div></div>
 
-    {{-- Atmospheric overlays --}}
     <div class="hero-grid-lines"></div>
     <div class="hero-noise"></div>
     <div class="hero-ring hero-ring-1"></div>
     <div class="hero-ring hero-ring-2"></div>
     <div class="hero-ring hero-ring-3"></div>
 
-    {{-- ── Slide 1 · Legal Aid Clinic Sessions ── --}}
-    <div class="hero-slide" :class="{ active: current === 0 }">
+    @forelse($heroSlides as $i => $slide)
+    <div class="hero-slide" :class="{ active: current === {{ $i }} }">
         <div class="hero-slide-bg" style="
             background-image:
-                url('<?php echo asset('assets/img/hero/hero-1.jpg'); ?>'),
+                {{ $slide->image_url ? "url('".$slide->image_url."')," : '' }}
                 radial-gradient(ellipse at 50% 50%, rgba(74,13,0,0.6) 0%, transparent 70%),
                 linear-gradient(135deg, #3a0800 0%, #6a1400 50%, #4a0d00 100%);
         "></div>
@@ -475,173 +462,102 @@
         <div class="hero-slide-content">
             <div class="hero-slide-inner">
                 <h1 class="hero-title">
-                    Free Legal<br>
-                    <em>Guidance</em><br>
-                    for <span class="hero-title-gold">Every Need</span>
+                    @php $lines = preg_split('/\r\n|\r|\n/', trim($slide->heading)); @endphp
+                    @foreach($lines as $li => $line)
+                        @if($li === count($lines) - 1)
+                            <span class="hero-title-gold">{{ $line }}</span>
+                        @else
+                            {{ $line }}<br>
+                        @endif
+                    @endforeach
                 </h1>
-                <p class="hero-subtitle">Qualified law students, supervised by ESUT faculty, handle your enquiry with complete confidentiality. No fees. No account needed.</p>
+                @if($slide->subtitle)
+                <p class="hero-subtitle">{{ $slide->subtitle }}</p>
+                @endif
                 <div class="hero-ctas">
-                    <a href="{{ route('enquiry.create') }}" class="hero-btn-primary">
-                        Get Free Legal Help
+                    @if($slide->primary_cta_label)
+                    <a href="{{ $slide->primary_cta_url ?: '#' }}" class="hero-btn-primary">
+                        {{ $slide->primary_cta_label }}
                         <svg width="12" height="12" viewBox="0 0 13 14" fill="none"><path d="M0.944 13.5C0.686 13.5 0.454 13.402 0.276 13.224C0.098 13.046 0 12.806 0 12.556C0 12.307 0.098 12.066 0.276 11.888L9.768 2.388H2.021C1.496 2.388 1.077 1.96 1.077 1.444C1.077 0.927 1.505 0.5 2.03 0.5H12.056C12.199 0.509 12.279 0.527L12.403 0.562L12.537 0.634C12.626 0.696 12.751 0.803 12.795 0.856L12.956 1.141L12.982 1.221C13 1.292 13.009 1.373 13.009 1.444V11.47C13.009 11.995 12.582 12.414 12.065 12.414C11.549 12.414 11.121 11.986 11.121 11.47V3.723L1.621 13.224C1.442 13.402 1.202 13.5 0.944 13.5Z" fill="currentColor"/></svg>
                     </a>
-                    <a href="{{ route('enquiry.track') }}" class="hero-btn-ghost">Track My Case</a>
-                    <a href="#faq-section" class="hero-btn-ghost">Legal Resources</a>
+                    @endif
+                    @if($slide->secondary_cta_label)
+                    <a href="{{ $slide->secondary_cta_url ?: '#' }}" class="hero-btn-ghost">{{ $slide->secondary_cta_label }}</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-
-    {{-- ── Slide 2 · Trained Student Advisors ── --}}
-    <div class="hero-slide" :class="{ active: current === 1 }">
-        <div class="hero-slide-bg" style="
-            background-image:
-                url('<?php echo asset('assets/img/hero/hero-2.webp'); ?>'),
-                radial-gradient(ellipse at 50% 50%, rgba(74,13,0,0.6) 0%, transparent 70%),
-                linear-gradient(135deg, #3a0800 0%, #6a1400 50%, #4a0d00 100%);
-        "></div>
+    @empty
+    {{-- Fallback slide if admin hasn't added any yet --}}
+    <div class="hero-slide active">
+        <div class="hero-slide-bg" style="background:linear-gradient(135deg,#3a0800 0%,#6a1400 50%,#4a0d00 100%)"></div>
         <div class="hero-slide-overlay"></div>
         <div class="hero-slide-content">
             <div class="hero-slide-inner">
-                <h1 class="hero-title">
-                    Expert Advice<br>
-                    <em>by Students,</em><br>
-                    <span class="hero-title-gold">for Students</span>
-                </h1>
-                <p class="hero-subtitle">Our advisors are trained law students at ESUT, working under the direct supervision of experienced faculty to deliver quality legal guidance.</p>
+                <h1 class="hero-title">Free Legal<br><span class="hero-title-gold">Guidance for Every Need</span></h1>
+                <p class="hero-subtitle">Qualified law students, supervised by ESUT faculty, handle your enquiry with complete confidentiality.</p>
                 <div class="hero-ctas">
-                    <a href="{{ route('about') }}" class="hero-btn-primary">Meet the Team</a>
-                    <a href="{{ route('enquiry.create') }}" class="hero-btn-ghost">Submit an Enquiry</a>
+                    <a href="{{ route('enquiry.create') }}" class="hero-btn-primary">Get Free Legal Help</a>
                 </div>
             </div>
         </div>
     </div>
+    @endforelse
 
-    {{-- ── Slide 3 · Excellence in Advocacy ── --}}
-    <div class="hero-slide" :class="{ active: current === 2 }">
-        <div class="hero-slide-bg" style="
-            background-image:
-                url('<?php echo asset('assets/img/hero/hero-3.webp'); ?>'),
-                radial-gradient(ellipse at 50% 50%, rgba(74,13,0,0.6) 0%, transparent 70%),
-                linear-gradient(135deg, #3a0800 0%, #6a1400 50%, #4a0d00 100%);
-        "></div>
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-content">
-            <div class="hero-slide-inner">
-                <h1 class="hero-title">
-                    Shaping<br>
-                    <em>Tomorrow's</em><br>
-                    <span class="hero-title-gold">Legal Minds</span>
-                </h1>
-                <p class="hero-subtitle">Through moot court competitions, legal aid clinics, and faculty mentorship, the ESUT Law Clinic builds the next generation of Nigerian legal practitioners.</p>
-                <div class="hero-ctas">
-                    <a href="{{ route('events.index') }}" class="hero-btn-primary">View Events</a>
-                    <a href="{{ route('faq.index') }}" class="hero-btn-ghost">Legal Resources</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- ── Slide 4 · Community Outreach ── --}}
-    <div class="hero-slide" :class="{ active: current === 3 }">
-        <div class="hero-slide-bg" style="
-            background-image:
-                url('<?php echo asset('assets/img/hero/hero-4.webp'); ?>'),
-                radial-gradient(ellipse at 50% 50%, rgba(74,13,0,0.6) 0%, transparent 70%),
-                linear-gradient(135deg, #3a0800 0%, #6a1400 50%, #4a0d00 100%);
-        "></div>
-        <div class="hero-slide-overlay"></div>
-        <div class="hero-slide-content">
-            <div class="hero-slide-inner">
-                <h1 class="hero-title">
-                    Justice<br>
-                    <em>Belongs</em><br>
-                    <span class="hero-title-gold">to Everyone</span>
-                </h1>
-                <p class="hero-subtitle">Beyond the campus — the ESUT Law Clinic extends free legal guidance to underserved communities across Enugu State, bridging the access-to-justice gap.</p>
-                <div class="hero-ctas">
-                    <a href="{{ route('enquiry.create') }}" class="hero-btn-primary">Get Free Help</a>
-                    <a href="{{ route('contact.index') }}" class="hero-btn-ghost">Contact Us</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- ── Prev / Next arrows ── --}}
+    @if($heroSlides->count() > 1)
     <button @click="prev()" class="carousel-arrow carousel-arrow-prev" aria-label="Previous slide">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
     </button>
     <button @click="next()" class="carousel-arrow carousel-arrow-next" aria-label="Next slide">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
     </button>
-
-    {{-- ── Dot indicators ── --}}
     <div class="carousel-dots">
         <template x-for="i in total" :key="i">
             <button class="carousel-dot" :class="{ active: current === i - 1 }" @click="go(i - 1)" :aria-label="'Slide ' + i"></button>
         </template>
     </div>
-
-    {{-- ── Slide counter ── --}}
     <div class="hero-counter">
         <span x-text="String(current + 1).padStart(2,'0')"></span>
         <span style="color:rgba(255,255,255,0.18)"> / </span>
         <span x-text="String(total).padStart(2,'0')"></span>
     </div>
+    @endif
 
-    {{-- ── Stats bar ── --}}
+    {{-- Stats bar — DYNAMIC, with auto/manual override per stat --}}
     <div class="hero-stats-bar">
         <div class="hero-stats-inner">
+            @foreach($homeStats as $stat)
             <div class="hero-stat-item">
-                <span class="hero-stat-num">{{ number_format(\App\Models\Enquiry::whereIn('status',['responded','closed'])->count() ?: 120) }}<sup>+</sup></span>
-                <span class="hero-stat-cap">Cases Handled</span>
+                <span class="hero-stat-num">{{ $stat->display_value }}@if($stat->suffix)<sup>{{ $stat->suffix }}</sup>@endif</span>
+                <span class="hero-stat-cap">{{ $stat->label }}</span>
             </div>
-            <div class="hero-stat-item">
-                <span class="hero-stat-num">{{ \App\Models\TeamMember::active()->students()->count() ?: 24 }}</span>
-                <span class="hero-stat-cap">Student Advisors</span>
-            </div>
-            <div class="hero-stat-item">
-                <span class="hero-stat-num">{{ now()->year - 2015 }}<sup>+</sup></span>
-                <span class="hero-stat-cap">Years Serving</span>
-            </div>
-            <div class="hero-stat-item">
-                <span class="hero-stat-num">48<sup>h</sup></span>
-                <span class="hero-stat-cap">Avg. Response</span>
-            </div>
-            <div class="hero-stat-item">
-                <span class="hero-stat-num">Mon – Fri</span>
-                <span class="hero-stat-cap">9 AM – 5 PM</span>
-            </div>
+            @endforeach
         </div>
     </div>
-
 </section>
 
 
-{{-- ═══ HOW IT WORKS ════════════════════════════════════════════════════ --}}
+{{-- ═══ HOW IT WORKS (DYNAMIC) ══════════════════════════════════════════ --}}
 <section class="how-section">
     <div class="container-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-14">
             <span class="section-eyebrow section-eyebrow-light">Simple Process</span>
             <h2 class="section-title section-title-light">How the <span>Clinic Works</span></h2>
             <div class="title-rule title-rule-light"><span></span><i></i><span></span></div>
-            <p class="text-sm max-w-lg mx-auto" style="color:var(--text-mid)">Getting legal guidance is simple, free, and completely confidential. Three steps — no account, no fees.</p>
+            <p class="text-sm max-w-lg mx-auto" style="color:var(--text-mid)">Getting legal guidance is simple, free, and completely confidential.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-            @foreach([
-                ['01','Submit Your Enquiry','Fill in our short online form. You can remain anonymous for sensitive matters. Attach any relevant documents. Takes under 5 minutes.','M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z'],
-                ['02','Advisors Review','A qualified student advisor, supervised by a faculty lecturer, reviews your matter and prepares a thorough legal response.','M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'],
-                ['03','Track & Receive','Use your reference code anytime to check progress. Once approved, your legal advice is delivered to your email.','M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4'],
-            ] as $step)
+            @foreach($howItWorksSteps as $i => $step)
             <div>
                 <div class="feature-pill">
                     <div><div class="fp-icon">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $step[3] }}"/></svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $step->icon_path }}"/></svg>
                     </div></div>
                     <div>
-                        <div class="fp-num">Step {{ $step[0] }}</div>
-                        <div class="fp-title">{{ $step[1] }}</div>
-                        <p class="fp-desc">{{ $step[2] }}</p>
+                        <div class="fp-num">Step {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</div>
+                        <div class="fp-title">{{ $step->title }}</div>
+                        <p class="fp-desc">{{ $step->description }}</p>
                     </div>
                 </div>
             </div>
@@ -649,25 +565,13 @@
         </div>
         <div class="max-w-4xl mx-auto">
             <div class="stats-strip">
+                @foreach($homeStats as $idx => $stat)
+                @if($idx > 0)<div class="stat-divider"></div>@endif
                 <div class="stat-item">
-                    <span class="stat-big">{{ number_format(\App\Models\Enquiry::whereIn('status',['responded','closed'])->count() ?: 120) }}<sup>+</sup></span>
-                    <span class="stat-cap">Cases Handled</span>
+                    <span class="stat-big">{{ $stat->display_value }}@if($stat->suffix)<sup>{{ $stat->suffix }}</sup>@endif</span>
+                    <span class="stat-cap">{{ $stat->label }}</span>
                 </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-big">{{ \App\Models\TeamMember::active()->students()->count() ?: 24 }}</span>
-                    <span class="stat-cap">Student Advisors</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-big">{{ now()->year - 2015 }}<sup>+</sup></span>
-                    <span class="stat-cap">Years Serving</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-big">48<sup>h</sup></span>
-                    <span class="stat-cap">Avg. Response</span>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
@@ -722,7 +626,7 @@
 </section>
 
 
-{{-- ═══ GALLERY ════════════════════════════════════════════════════════ --}}
+{{-- ═══ GALLERY (DYNAMIC) ════════════════════════════════════════════════ --}}
 <section class="gallery-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
@@ -732,31 +636,20 @@
             <p class="text-sm max-w-md mx-auto" style="color:var(--text-mid)">A glimpse into the work, events, and milestones of the ESUT Law Clinic and Faculty of Law.</p>
         </div>
         <div class="gallery-grid">
-            {{-- Replace each .gallery-placeholder with <img src="..." alt="..."> when real photos are ready --}}
+            @forelse($galleryItems as $item)
             <div class="gallery-item">
-                <div class="gallery-placeholder" style="height:340px">⚖️</div>
-                <div class="gallery-overlay"><span class="gallery-overlay-text">Legal Aid Clinic Session</span></div>
+                @if($item->image_url)
+                    <img src="{{ $item->image_url }}" alt="{{ $item->caption }}" style="{{ $item->height ? 'height:'.$item->height.'px;object-fit:cover' : '' }}">
+                @else
+                    <div class="gallery-placeholder" style="height:{{ $item->height ?: 260 }}px">📷</div>
+                @endif
+                @if($item->caption)
+                <div class="gallery-overlay"><span class="gallery-overlay-text">{{ $item->caption }}</span></div>
+                @endif
             </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder" style="height:200px">🎓</div>
-                <div class="gallery-overlay"><span class="gallery-overlay-text">Student Advisor Training</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder" style="height:360px">📚</div>
-                <div class="gallery-overlay"><span class="gallery-overlay-text">Faculty Supervision Workshop</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder" style="height:220px">🏛️</div>
-                <div class="gallery-overlay"><span class="gallery-overlay-text">Moot Court Competition</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder" style="height:270px">🤝</div>
-                <div class="gallery-overlay"><span class="gallery-overlay-text">Community Outreach Programme</span></div>
-            </div>
-            <div class="gallery-item">
-                <div class="gallery-placeholder" style="height:250px">🏆</div>
-                <div class="gallery-overlay"><span class="gallery-overlay-text">Law Clinic Awards Ceremony</span></div>
-            </div>
+            @empty
+            <p class="text-sm text-center" style="color:var(--text-light)">Gallery photos coming soon.</p>
+            @endforelse
         </div>
     </div>
 </section>
@@ -766,26 +659,40 @@
 @if($lecturers->isNotEmpty())
 <section class="team-section relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
+        <div class="text-center mb-14">
             <span class="section-eyebrow section-eyebrow-light">Faculty Oversight</span>
             <h2 class="section-title section-title-light">Supervising <span>Lecturers</span></h2>
             <div class="title-rule title-rule-light"><span></span><i></i><span></span></div>
             <p class="text-sm max-w-md mx-auto" style="color:var(--text-mid)">All legal advice from the clinic is reviewed and approved by qualified faculty members before dispatch.</p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             @foreach($lecturers as $lecturer)
             <div class="lecturer-card">
-                <div class="lecturer-photo"><img src="{{ $lecturer->photo_url }}" alt="{{ $lecturer->name }}"></div>
-                <div>
+                <div class="lecturer-accent-bar"></div>
+                <div class="lecturer-photo-wrap">
+                    @php $initials = collect(explode(' ', $lecturer->name))->map(fn($w) => strtoupper($w[0] ?? ''))->take(2)->implode(''); @endphp
+                    @if($lecturer->photo_url)
+                        <img src="{{ $lecturer->photo_url }}" alt="{{ $lecturer->name }}">
+                    @else
+                        <div class="lecturer-photo-placeholder"><span class="lecturer-photo-initials">{{ $initials }}</span></div>
+                    @endif
+                    @if($lecturer->bio)
+                    <div class="lecturer-photo-overlay"><p class="lecturer-overlay-bio">{{ Str::limit($lecturer->bio, 120) }}</p></div>
+                    @endif
+                </div>
+                <div class="lecturer-body">
                     <div class="lecturer-name">{{ $lecturer->name }}</div>
                     <div class="lecturer-role">{{ $lecturer->role }}</div>
-                    @if($lecturer->bio)<div class="lecturer-bio">{{ Str::limit($lecturer->bio, 80) }}</div>@endif
+                    @if($lecturer->department ?? false)<div class="lecturer-dept">{{ $lecturer->department }}</div>@endif
                 </div>
             </div>
             @endforeach
         </div>
-        <div class="text-center mt-10">
-            <a href="{{ route('about') }}" class="text-sm font-semibold" style="color:var(--crimson)">Meet the full team →</a>
+        <div class="text-center mt-12">
+            <a href="{{ route('about') }}" class="inline-flex items-center gap-2 text-sm font-semibold transition-colors" style="color:var(--crimson)">
+                Meet the full team
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
         </div>
     </div>
     <div class="team-cut absolute bottom-0 left-0 right-0" style="height:70px"></div>
@@ -831,19 +738,23 @@
 @endif
 
 
-{{-- ═══ MARQUEE ══════════════════════════════════════════════════════════ --}}
+{{-- ═══ MARQUEE (DYNAMIC) ════════════════════════════════════════════════ --}}
 <section class="marquee-section">
     <div class="marquee-track">
         <div class="marquee-inner">
-            @foreach(array_fill(0, 2, null) as $_)
+            @forelse($marqueeItems as $item)
+                <span class="mq-item">{{ $item->text }}</span><span class="mq-dot"></span>
+            @empty
                 <span class="mq-item">ESUT Law Clinic</span><span class="mq-dot"></span>
                 <span class="mq-item">Free Legal Guidance</span><span class="mq-dot"></span>
-                <span class="mq-item">Submit Your Enquiry Today</span><span class="mq-dot"></span>
-                <span class="mq-item">Confidential & No Cost</span><span class="mq-dot"></span>
-                <span class="mq-item">Faculty of Law · ESUT</span><span class="mq-dot"></span>
-                <span class="mq-item">Know Your Rights</span><span class="mq-dot"></span>
-                <span class="mq-item">Agbani, Enugu State</span><span class="mq-dot"></span>
-            @endforeach
+            @endforelse
+            {{-- Repeat once more for seamless infinite scroll --}}
+            @forelse($marqueeItems as $item)
+                <span class="mq-item">{{ $item->text }}</span><span class="mq-dot"></span>
+            @empty
+                <span class="mq-item">ESUT Law Clinic</span><span class="mq-dot"></span>
+                <span class="mq-item">Free Legal Guidance</span><span class="mq-dot"></span>
+            @endforelse
         </div>
     </div>
 </section>
@@ -867,6 +778,43 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+{{-- ═══ LEGAL DISCLAIMER ═════════════════════════════════════════════════ --}}
+<section class="disclaimer-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+         x-data="{ open: true }">
+
+        <button class="disclaimer-toggle" @click="open = !open" :aria-expanded="open">
+            <span class="disclaimer-icon">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                          d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                </svg>
+            </span>
+            <span class="disclaimer-label">Legal Disclaimer &amp; Limitation of Liability</span>
+            <svg class="disclaimer-chevron w-4 h-4" :class="{ open: open }"
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+        </button>
+
+        <div class="disclaimer-body"
+             x-show="open"
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-cloak>
+            <p class="disclaimer-text">
+                <strong>Important Notice:</strong>
+                While reasonable efforts are made to ensure the accuracy and usefulness of information provided through this platform,
+                the responses are intended for <strong>general informational purposes only</strong> and do not constitute formal legal advice
+                or create a solicitor-client relationship. Users are encouraged to seek professional legal counsel for specific matters.
+                The Faculty shall not be liable for decisions made solely on the basis of information obtained from this platform.
+            </p>
+        </div>
+
     </div>
 </section>
 
